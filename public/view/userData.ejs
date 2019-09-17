@@ -1,0 +1,49 @@
+<md-dialog style="width: 500px" aria-label="UPDATE USER DATA">
+    <div ng-controller="userDataCtrl">
+        <form name="Form" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{title}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div layout="column" class="md-dialog-content">
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input name="username" ng-model="userdata.username" type="text" placeholder="请输入您的用户名"  required>
+                        <span class="error" ng-show="userDataForm.username.$error.required
+                            && userDataForm.username.$touched">用户名必须填写</span>
+                    </md-input-container>
+                    <!--<md-input-container  class="md-input-has-placeholder">-->
+                    <!--<input name="email" ng-model="userdata.email" type="email" placeholder="请输入您的邮箱" required>-->
+                    <!--<span class="error" ng-show="userDataForm.email.$error.required-->
+                    <!--&& userDataForm.email.$touched">请输入正确的邮箱格式</span>-->
+                    <!--</md-input-container>-->
+                    <md-radio-group ng-model="userdata.sex" layout="row"  style="margin-bottom: 16px;">
+                        <span>性别：  </span>
+                        <md-radio-button ng-repeat="d in radioData"
+                                         ng-value="d"
+                        >
+                            {{d}}
+                        </md-radio-button>
+                    </md-radio-group>
+
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="save('close dialog')">
+                    确定
+                </md-button>
+                <md-button ng-click="cancel()">
+                    取消
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

@@ -1,0 +1,51 @@
+<md-dialog style="width: 500px" aria-label="NEW KANBAN">
+    <div ng-controller="newTeamCtrl">
+        <form name="Form" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{title}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div layout="column" class="md-dialog-content">
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="teamName" ng-model="teamData.team_name" type="text" placeholder="请输入团队名"
+                               required>
+                        <span class="error" ng-show="Form.teamName.$error.required
+                            && Form.kanbanName.$touched">团队名必须填写</span>
+                    </md-input-container>
+                    <md-input-container class="md-input-has-placeholder">
+                        <input ng-model="teamData.desc" type="text" placeholder="请输入团队简介">
+                    </md-input-container>
+                    <div layout="row">
+                        <div style="margin: 10px;">成员:</div>
+                        <div ng-dropdown-multiselect="" options="users" selected-model="teamData.members"  extra-settings="settings"></div>
+                        <!--<div style="margin-top: 6px;margin-left:50px  ">-->
+                            <!--公开：<md-checkbox style="" ng-model="teamData.shared"></md-checkbox>-->
+                        <!--</div>-->
+                    </div>
+
+
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <!--<md-button href="" target="_blank" md-autofocus>-->
+                <!--More on Wikipedia-->
+                <!--</md-button>-->
+                <span flex></span>
+                <md-button ng-click="save('close dialog')">
+                    确定
+                </md-button>
+                <md-button ng-click="cancel()">
+                    取消
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

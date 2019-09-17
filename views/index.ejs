@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+  <title>JOY WORK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+  <link rel="stylesheet" href="./stylesheets/angular-material.css" />
+  <link rel="stylesheet" href="./stylesheets/material-icons-custom.css" />
+  <link rel="stylesheet" href="./stylesheets/style.css" />
+  <link rel="stylesheet" href="./stylesheets/bootstrap.css" />
+  <link rel="stylesheet" href="./stylesheets/colorpicker.css" />
+
+  <script type="text/javascript" src="./javascripts/lib/angular.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-cookies.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-animate.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-aria.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-messages.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-material.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-ui-router.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angular-drag-and-drop-lists.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/angularjs-dropdown-multiselect.js"></script>
+  <script type="text/javascript" src="./javascripts/lib/bootstrap-colorpicker-module.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_app.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_service_manager.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_directive.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_home.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_project.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_kanban.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_kanbanPage.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_newProject.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_newTask.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_newKanban.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_newTeam.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_index.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_header.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_login.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_userData.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_changePassword.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_register.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_team.js"></script>
+  <script type="text/javascript" src="./javascripts/jw_controller_task.js"></script>
+</head>
+<body ng-app="joy_work" layout="column" ng-controller="indexCtrl">
+<%- include('header') -%>
+<!--<a ui-sref='login'>C2</a><br />-->
+<div style="height:100%; overflow:hidden; margin:0px; padding:0px;overflow: auto;">
+  <ui-view> </ui-view>
+</div>
+
+<%- include('footer') -%>
+
+</body>
+</html>

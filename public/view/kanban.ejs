@@ -1,0 +1,102 @@
+<div layout="column" style=" height: 100%;" ng-style="{'background' : currentKanban.background_color}"
+     ng-controller="kanbanPageCtrl">
+    <div class="board-main-content">
+        <div style="background-color: rgba(175,245,215,0.65); height: 30px; border-radius: 3px;margin: 0px 5px;"
+             layout="row">
+            <span id="kanbanname" class="board-header" style="outline:none;" ng-click="onEditKanbanNameClick()">
+                <input type="text" ng-model="currentKanban.kanban_name"
+                       style="background-color: transparent;border: 0px; min-width: 80px;" placeholder="看板名"
+                       ng-blur="saveKanban('kanban_name')" ng-disabled="editableKanban">
+            </span>
+            <span class="board-header">背景色：</span>
+            <span class="board-header">
+                <div colorpicker ng-model="currentKanban.background_color"
+                     style="width: 24px;height: 24px;border-radius: 16px;margin: -1px; " ng-click=""
+                     ng-blur="saveKanban('background_color')"
+                     ng-style="{'background' : currentKanban.background_color}"></div>
+                <md-tooltip>选择一个您喜欢的背景色!</md-tooltip>
+            </span>
+            <span class="board-header">已选项目:</span>
+            <span class="board-header">
+                <div ng-dropdown-multiselect="" style="margin-top: -5px;" options="projects" extra-settings="settings"
+                     events="customEvents" selected-model="currentKanban.projects"></div>
+            </span>
+            <span class="board-header">所属团队:</span>
+            <span>
+                <!--<b style="font-size:12px;">负责人：</b>-->
+                <md-autocomplete
+                        md-select-on-match="true" md-search-text="searchTeamText"
+                        md-selected-item="currentKanban.team"
+                        md-items="team in queryTeamSearch(searchTeamText)"
+                        md-item-text="team.team_name" md-min-length="0" md-no-cache="true"  style="background-color: transparent;border: none;margin-top: -4px;margin-left: 8px"
+                        md-style="{'height':'350px','width':'300px'}" ng-blur="saveKanban('team')">
+                    <md-item-template>
+                        <span>{{team.team_name}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+            </span>
+        </div>
+        <div ng-style="{'background' : currentKanban.background_color}" class="board-canvas">
+            <div class="board">
+                <div ng-repeat="list in lists" class="list-wrapper">
+                    <div class="list" ng-style="{'height': onDragging?'100%':null}">
+                        <div class="list-header">
+                            <!--<div class="list-header-target" ng-show="!editListName" ng-click="editListName=true" style="outline: none"></div>-->
+                            <textarea ng-model="list.list_name" class="mod-list-name"  ng-click="editListName=true" ng-blur="saveList(list, $index); editListName=false"
+                                      maxlength="512" ng-style="{'background-color': editListName ? '#fff': 'transparent', 'border': editListName? '0px':'2px'}"
+                                      style="overflow: hidden; width: 70%;word-wrap: break-word; height: 28px;margin: 0px"></textarea>
+                            <md-menu md-offset="-2 22">
+                                <div class="list-header-extras" ng-click="$mdOpenMenu($event)">...</div>
+                                <md-menu-content style="overflow: hidden;padding:0;margin:0;height:auto;width:auto;" ng-mouseleave="$mdCloseMenu();">
+                                    <md-menu-item style="max-height: 25px;min-height: 25px;height: 25px;"><md-button style="padding-left:6px;text-align:left;font-size: 13px" ng-click=""><md-icon>delete</md-icon>删除</md-button></md-menu-item>
+                                    <md-menu-item style="max-height: 25px;min-height: 25px;height: 25px;"><md-button style="padding-left:6px;text-align:left;font-size: 13px" ng-click=""><md-icon>edit</md-icon>修改</md-button></md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                        <div class="list-cards taskBoardDragClass"  dnd-list="kanbanData" dnd-drop="onDropComplete(list, item, index)">
+                             <div ng-repeat="task in list.tasks" style="background-color: #dfe3e6;max-width: 300px; min-height: 20px; padding: 4px">
+                                <div dnd-draggable="task" dnd-dragstart="onDragStart()" dnd-effect-allowed="move"
+                                     draggable="true" ng-click="onEditTaskClick($event, task)"
+                                     ng-style="{'border-bottom':'2px solid' + task.label}" class="list-card">
+                                    <div class="list-card-cover between">
+                                        <span>{{task.task_name}}</span>
+                                        <md-menu md-offset="-2 22">
+                                        <span ng-click="$mdOpenMenu($event)">...</span>
+                                            <md-menu-content style="overflow: hidden;padding:0;margin:0;height:auto;width:auto;" ng-mouseleave="$mdCloseMenu();">
+                                                <md-menu-item style="max-height: 25px;min-height: 25px;height: 25px;"><md-button style="padding-left:6px;text-align:left;font-size: 13px" ng-click="onDeleteTaskClick(task, list._id, $index)"><md-icon>delete</md-icon>删除</md-button></md-menu-item>
+                                                <md-menu-item style="max-height: 25px;min-height: 25px;height: 25px;"><md-button style="padding-left:6px;text-align:left;font-size: 13px" ng-click="onEditTaskClick($event, task)"><md-icon>edit</md-icon>修改</md-button></md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="showAddTask" style="background-color: #dfe3e6;" class="card-composer">
+                                <div class="list-card">
+                                    <div class="list-card-details"></div>
+                                    <div class="list-card-labels"></div>
+                                    <textarea class="list-card-composer-textarea" ng-model="newTask.task_name"
+                                              placeholder="为这张卡片输入标题…"
+                                              style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div  ng-show="!onDragging">
+                            <div ng-hide="showAddTask" ng-click="onAddTaskClick($event, list, $index)"><md-icon>add</md-icon><span>添加另一张卡片</span></div>
+                            <!--<div ng-hide="showAddTask" ng-click="showAddTask=true"><md-icon>add</md-icon><span>添加另一张卡片</span></div>-->
+                            <!--<div  ng-show="showAddTask"><md-button ng-click="onAddTaskClick(list, $index);showAddTask = false" style="background-color: #5aac44">添加卡片</md-button>-->
+                            <!--<md-icon ng-click="showAddTask = false">close<md-tooltip>取消添加卡片</md-tooltip></md-icon></div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="list-wrapper mod-add" style="opacity: 0.45;">
+                    <span ng-hide="showAddList" ng-click="showAddList = true"><md-icon>add</md-icon>添加一个新的列表</span>
+                    <div ng-show="showAddList">
+                        <input class="list-name-input" type="text" ng-model="newList.list_name"  placeholder="请输入列表标题">
+                        <md-button style="background-color: #5aac44" ng-click="onAddListClick()">添加列表</md-button>
+                        <md-icon ng-click="showAddList = false">close<md-tooltip>取消添加列表</md-tooltip></md-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

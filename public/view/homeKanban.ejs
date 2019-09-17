@@ -1,0 +1,39 @@
+<div style="margin-left: 20px"  ng-controller="kanbanCtrl">
+    <div style="height: 20px"></div>
+    <div layout="column">
+        <div layout="column">
+            <span style="margin: 10px;">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                看板界面
+            </span>
+            <span>
+                <ul class="boards-page-board-section-list">
+                    <li ng-repeat="kanban in kanbanList" class="boards-page-board-section-list-item">
+                        <div class="board-tile" href="" ng-style="{'background-color': kanban.background_color}" style="height: 80px;">
+                            <span class="board-tile-fade"></span>
+                            <div class="board-tile-details is-badged" ng-click="onKanbanClick(kanban)">
+                                <div title="aa" dir="auto" class="board-tile-details-name">
+                                    <div style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">{{kanban.kanban_name}}</div>
+                                </div>
+                                <div class="board-tile-details-sub-container">
+                                    <span class="board-tile-options"></span>
+                                </div>
+                                <md-tooltip>点击进入看板详情页面</md-tooltip>
+                            </div>
+                            <span class="board-tile-badges">
+                                <md-icon ng-click="removeKanban($event, kanban._id)">delete</md-icon><md-tooltip>删除这个看板</md-tooltip>
+                            </span>
+                        </div>
+                        <div class="board-tags u-clearfix"></div>
+                    </li>
+                    <li class="boards-page-board-section-list-item"><div class="board-tile mod-add" ng-click="showAddKanbanDialog($event)"><p class="bold"><span>创建新看板…</span></p></div></li>
+                </ul>
+            </span>
+        </div>
+        <div>
+            <!--<span style="margin: 10px;">看板界面</span>-->
+
+        </div>
+
+    </div>
+</div>

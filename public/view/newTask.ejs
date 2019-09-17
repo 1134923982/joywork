@@ -1,0 +1,82 @@
+<md-dialog style="width: 500px" aria-label="NEW TASK">
+    <div ng-controller="newTaskCtrl">
+        <form name="Form" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{title}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div layout="column" class="md-dialog-content">
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="taskName" ng-model="taskData.task_name" type="text" placeholder="请输入任务名"
+                               required>
+                        <span class="error" ng-show="Form.taskName.$error.required
+                            && Form.taskName.$touched">任务名必须填写</span>
+                    </md-input-container>
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="taskDesc" ng-model="taskData.desc" type="text" placeholder="请输入任务描述">
+                    </md-input-container>
+                    <div layout="row">
+                        <div style="margin: 5px">
+                            <md-autocomplete
+                                    md-select-on-match="true" md-search-text="searchUserText"
+                                    md-selected-item="taskData.owner"
+                                    md-items="user in queryUserSearch(searchUserText)"
+                                    md-item-text="user.username" md-min-length="0" md-no-cache="true"
+                                    md-style="{'height':'350px','width':'300px'}" md-floating-label="任务负责人">
+                                <md-item-template>
+                                    <span>{{user.username}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <div style="margin: 5px">
+                            <md-autocomplete
+                                    md-select-on-match="true" md-search-text="searchProjectText"
+                                    md-selected-item="taskData.project"
+                                    md-items="project in queryProjectSearch(searchProjectText)"
+                                    md-item-text="project.project_name" md-min-length="0" md-no-cache="true"
+                                    md-style="{'height':'350px','width':'300px'}" md-floating-label="所属项目">
+                                <md-item-template>
+                                    <span>{{project.project_name}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div>
+                            <span style="margin-left: 18px;">任务开始时间：</span>
+                            <md-datepicker ng-model="taskData.begin_time" md-placeholder="begin date" md-mode="day"></md-datepicker>
+                        </div>
+                        <div>
+                            <span style="margin-left: 18px;">任务结束时间：</span>
+                            <md-datepicker ng-model="taskData.end_time" md-placeholder="end date" md-mode="day"></md-datepicker>
+                        </div>
+                    </div>
+                    <div layout="row" style="margin-top: 25px;">
+                        <span style="width: 40px; height: 32px;border-radius: 4px;margin: 3px;">标签:</span>
+                        <span style="width: 40px; height: 32px;border-radius: 4px;margin: 3px;" ng-click="taskData.label=color" ng-repeat="color in background_colors" ng-style="{'background' : color}">
+                            <span style="color: #fff;top: 8px;left: 12px" ng-show="taskData.label===color" class="glyphicon glyphicon-ok"></span>
+                        </span>
+                    </div>
+
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="save('close dialog')">
+                    确定
+                </md-button>
+                <md-button ng-click="cancel()">
+                    取消
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

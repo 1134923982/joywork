@@ -1,0 +1,64 @@
+<div layout="column" ng-controller="registerCtrl">
+    <div style="display: flex; justify-content: center; align-items: center;margin-top: 2%;">
+        <form class="login" flex="1" name="registerForm" ng-submit="submitForm()">
+            <md-card md-theme-watch style="width: 30em;flex: 0 0 auto;">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">欢迎注册</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="column" style="width: 80%" layout-align="space-between">
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input name="username" ng-model="userdata.username" type="text" placeholder="请输入您的用户名"  required>
+                        <span class="error" ng-show="registerForm.username.$error.required
+                            && registerForm.username.$touched">用户名必须填写</span>
+                    </md-input-container>
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input name="email" ng-model="userdata.email" type="email" placeholder="请输入您的邮箱" required>
+                        <span class="error" ng-show="registerForm.email.$error.required
+                            && registerForm.email.$touched">请输入正确的邮箱格式</span>
+                    </md-input-container>
+                    <md-radio-group ng-model="userdata.sex" layout="row" style="margin-bottom: 20px;">
+                        <span style="">性别：  </span>
+                        <md-radio-button ng-repeat="d in radioData"
+                                         ng-value="d">
+                            {{d}}
+                        </md-radio-button>
+                    </md-radio-group>
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input name="password"
+                               ng-model="userdata.password"
+                               type="password"
+                               placeholder="请输入您的密码"
+                               ng-minlength="6"
+                               ng-maxlength="255" required>
+                        <span class="error" ng-show="(registerForm.password.$error.minlength
+                            || registerForm.password.$error.maxlength)
+                            && registerForm.password.$touched">密码长度必须在6-30之间</span>
+                    </md-input-container>
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input name="repeatPassword"
+                               ng-model="userdata.repeatPassword"
+                               type="password"
+                               placeholder="请再次输入您的密码"
+                               ng-minlength="5"
+                               ng-maxlength="30"
+                               compare="userdata.password" required>
+                        <span class="error" ng-show="registerForm.repeatPassword.$error.compare
+                            && registerForm.repeatPassword.$touched">两次输入密码不一致</span>
+                    </md-input-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button type="submit">注册</md-button>
+                        <md-button  ui-sref='login'>返回</md-button>
+                    </md-card-actions>
+                    <md-card-actions class="text-right">
+                        <span class="error" ng-show="registerCode">{{registerResult}}</span>
+                        <p ng-show="registerResult && !registerCode">{{registerResult}}<a ui-sref='login'>返回登录</a></p>
+                        <p ng-show="!registerResult || registerCode">已有账户？<a ui-sref='login'>返回登录</a></p>
+                    </md-card-actions>
+                </md-card-content>
+            </md-card>
+        </form>
+    </div>
+
+</div>

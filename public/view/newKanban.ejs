@@ -1,0 +1,61 @@
+<md-dialog style="width: 500px" aria-label="NEW KANBAN">
+    <div ng-controller="newKanbanCtrl">
+        <form name="Form" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{title}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div layout="column" class="md-dialog-content">
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="kanbanName" ng-model="kanbanData.kanban_name" type="text" placeholder="请输入看板名"
+                               required>
+                        <span class="error" ng-show="Form.kanbanName.$error.required
+                            && Form.kanbanName.$touched">看板名必须填写</span>
+                    </md-input-container>
+                    <div layout="row">
+                        <div>
+                            <!--<b style="font-size:12px;">负责人：</b>-->
+                            <md-autocomplete
+                                    md-select-on-match="true" md-search-text="searchTeamText"
+                                    md-selected-item="kanbanData.team"
+                                    md-items="team in queryTeamSearch(searchTeamText)"
+                                    md-item-text="team.team_name" md-min-length="0" md-no-cache="true"
+                                    md-style="{'height':'350px','width':'300px'}" md-floating-label="看板所属团队">
+                                <md-item-template>
+                                    <span>{{team.team_name}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+                    <div layout="row" style="margin-top: 25px;">
+                        <md-input-container class="md-input-has-placeholder" layout="row">
+                            <input colorpicker colorpicker-position="right" type="text" style="width: 100px; border-color: {{projectData.background_color}}" ng-model="kanbanData.background_color"  placeholder="请选择背景色"/>
+                            <!--<div colorpicker ng-model="your_model" style="width: 30px;height: 30px;border-radius: 15px;" ng-style="{'background' : 'red'}"></div>-->
+                        </md-input-container>
+                    </div>
+
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <!--<md-button href="" target="_blank" md-autofocus>-->
+                <!--More on Wikipedia-->
+                <!--</md-button>-->
+                <span flex></span>
+                <md-button ng-click="save('close dialog')">
+                    确定
+                </md-button>
+                <md-button ng-click="cancel()">
+                    取消
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

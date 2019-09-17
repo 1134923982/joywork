@@ -1,0 +1,85 @@
+<md-dialog style="width: 500px" aria-label="NEW PROJECT">
+    <div ng-controller="newProjectCtrl">
+        <form name="Form" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{title}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div layout="column" class="md-dialog-content">
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="projectName" ng-model="projectData.project_name" type="text" placeholder="请输入项目名"
+                               required>
+                        <span class="error" ng-show="Form.projectName.$error.required
+                            && Form.projectName.$touched">项目名必须填写</span>
+                    </md-input-container>
+                    <md-input-container class="md-input-has-placeholder">
+                        <input name="projectDesc" ng-model="projectData.desc" type="text" placeholder="请输入项目描述"
+                               required>
+                        <span class="error" ng-show="Form.projectDesc.$error.required
+                            && Form.projectDesc.$touched">项目描述必须填写</span>
+                    </md-input-container>
+                    <div layout="row">
+                        <div>
+                            <!--<b style="font-size:12px;">负责人：</b>-->
+                            <md-autocomplete
+                                    md-select-on-match="true" md-search-text="searchUserText"
+                                    md-selected-item="projectData.owner"
+                                    md-items="user in queryUserSearch(searchUserText)"
+                                    md-item-text="user.username" md-min-length="0" md-no-cache="true"
+                                    md-style="{'height':'350px','width':'300px'}" md-floating-label="项目负责人">
+                                <md-item-template>
+                                    <span>{{user.username}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <div>
+                            <!--<b style="font-size:12px;">负责人：</b>-->
+                            <md-autocomplete
+                                    md-select-on-match="true" md-search-text="searchTeamText"
+                                    md-selected-item="projectData.team"
+                                    md-items="team in queryTeamSearch(searchTeamText)"
+                                    md-item-text="team.team_name" md-min-length="0" md-no-cache="true"
+                                    md-style="{'height':'350px','width':'300px'}" md-floating-label="项目所属团队">
+                                <md-item-template>
+                                    <span>{{team.team_name}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <!--</span><span flex>-->
+                        <!--<div style="margin-top: -7px;" ng-dropdown-multiselect="" options="example1data" selected-model="example1model"  extra-settings="example1settings"></div>-->
+                    </div>
+                    <div layout="row">
+                        <div>
+                            <span style="margin-left: 18px;">项目开始时间：</span>
+                            <md-datepicker ng-model="projectData.begin_time" md-placeholder="begin date" md-mode="day"></md-datepicker>
+                        </div>
+                        <div>
+                            <span style="margin-left: 18px;">项目结束时间：</span>
+                            <md-datepicker ng-model="projectData.end_time" md-placeholder="end date" md-mode="day"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <!--<md-button href="" target="_blank" md-autofocus>-->
+                <!--More on Wikipedia-->
+                <!--</md-button>-->
+                <span flex></span>
+                <md-button ng-click="save('close dialog')">
+                    确定
+                </md-button>
+                <md-button ng-click="cancel()">
+                    取消
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

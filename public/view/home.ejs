@@ -1,0 +1,41 @@
+<div  layout="row" ng-controller="homeCtrl">
+    <div class="menu"
+         ng-style="{'min-height':innerHeight-80+'px','max-height':innerHeight-255+'px'}" >
+        <div style="margin-top: 50px">
+            <md-button style="width: 80%" ng-click="onHomePageClick()">
+                <md-icon>home</md-icon>
+                主页
+            </md-button>
+            <md-button style="width: 80%" ng-click="onHomeKanbanClick()">
+                <md-icon>dashboard</md-icon>
+                看板
+            </md-button>
+            <md-button style="width: 80%" ng-click="onHomeProjectClick()">
+                <md-icon>work</md-icon>
+                项目
+            </md-button>
+            <md-button style="width: 80%" ng-click="onHomeTeamClick()">
+                <md-icon>equalizer</md-icon>
+                团队
+            </md-button>
+            <md-button style="width: 80%" ng-click="onHomeTaskClick()">
+                <md-icon>view_list</md-icon>
+                任务
+            </md-button>
+            <!--<md-button style="width: 80%" ng-click="onUserDataClick()">-->
+                <!--<span class="glyphicon glyphicon-user" style="color:  rgba(0,0,0,0.54);"></span>-->
+                <!--个人资料-->
+            <!--</md-button>-->
+
+        </div>
+        <!--<md-button style="width: 80%"><md-icon>view_list</md-icon></md-button>-->
+
+        <!--<md-button style="width: 80%"><md-icon>done_all</md-icon></md-button>-->
+        <!--<md-button style="width: 80%"><md-icon>device_hub</md-icon></md-button>-->
+        <!--<md-button style="width: 80%"><md-icon>bug_report</md-icon></md-button>-->
+        <!--<md-button style="width: 80%"><md-icon>dashboard</md-icon></md-button>-->
+    </div>
+    <div class="content" ng-style="{'min-height':innerHeight-80+'px','max-height':innerHeight-255+'px'}" >
+        <ui-view> </ui-view>
+    </div>
+</div>

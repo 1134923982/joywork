@@ -1,0 +1,33 @@
+<div layout="column" ng-controller="loginCtrl">
+    <div style="display: flex; justify-content: center; align-items: center;margin-top: 8%;">
+        <form class="login" flex="1">
+            <md-card style="height: 25em;width: 30em;flex: 0 0 25em;">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">欢迎登录</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="column" layout-align="space-between">
+                    <md-input-container class="md-input-has-placeholder">
+                        <input type="text" ng-model="userdata.account" placeholder="你的账号" required>
+                    </md-input-container>
+                    <md-input-container  class="md-input-has-placeholder">
+                        <input type="password" ng-model="userdata.password" placeholder="你的密码" required>
+                        <div style="float: right; font-size: 12px; margin-top: 15px; margin-right: 10px;">
+                            <span>记住密码: <md-checkbox ng-model="userdata.remenberPassword" style="width: 12px;height: 12px;" aria-label="remenber"></md-checkbox></span>
+                        </div>
+                        <div style="color: red">{{message}}</div>
+                    </md-input-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click="onLoginClick()" class="md-raised md-primary">登录</md-button>
+                    </md-card-actions>
+                    <md-card-actions class="text-right" style="margin-top: 25px">
+                        <p>还没有账户？<a  ui-sref='register'>注册</a></p>
+                        <!--<p>忘记密码？<a href="">找回</a></p>-->
+                    </md-card-actions>
+                </md-card-content>
+            </md-card>
+        </form>
+    </div>
+
+</div>
